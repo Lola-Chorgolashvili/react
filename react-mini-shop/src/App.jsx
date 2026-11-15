@@ -34,7 +34,7 @@ function ProductCards({ productName, price, description, handleAddToCart }) {
         <h2>{productName}</h2>
         <p>{price}</p>
         <p>{description}</p>
-        <button onClick={handleAddToCart}>კალათაში დამატება</button>
+        <button onClick={() => handleAddToCart(price)}>კალათაში დამატება</button>
       </article>
     </>
   );
@@ -44,17 +44,21 @@ function ProductCards({ productName, price, description, handleAddToCart }) {
 // console.log(result)
 export default function App() {
   const [count, setCount] = useState(0);
-  function handleAddToCart() {
+  const[total, setTotal] = useState(0);
+  function handleAddToCart(productPrice) {
     setCount(count + 1);
+    setTotal(total + productPrice)
   }
   function handleCleanToCart() {
     setCount(0);
+    setTotal(0);
   }
   return (
     <main>
       <h1>Mini-Shop</h1>
       <p>{count}</p>
       <button onClick={handleCleanToCart}>გასუფთავება</button>
+      <p>{total}</p>
       {products.map(function (product) {
         return (
           <ProductCards
