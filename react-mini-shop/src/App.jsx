@@ -47,10 +47,14 @@ export default function App() {
   function handleAddToCart() {
     setCount(count + 1);
   }
+  function handleCleanToCart() {
+    setCount(0);
+  }
   return (
     <main>
       <h1>Mini-Shop</h1>
       <p>{count}</p>
+      <button onClick={handleCleanToCart}>გასუფთავება</button>
       {products.map(function (product) {
         return (
           <ProductCards
@@ -59,6 +63,7 @@ export default function App() {
             price={product.price}
             description={product.description}
             handleAddToCart={handleAddToCart}
+            handleCleanToCart={handleCleanToCart}
           />
         );
       })}
