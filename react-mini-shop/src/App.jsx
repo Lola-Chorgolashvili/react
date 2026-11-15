@@ -1,4 +1,5 @@
 import "./App.css";
+import { useState } from "react";
 const products = [
   {
     id: 1,
@@ -26,10 +27,7 @@ const products = [
   },
 ];
 
-function ProductCards({ productName, price, description }) {
-  function handleAddToCart() {
-    alert(productName + " დაემატა კალათაში.");
-  }
+function ProductCards({ productName, price, description, handleAddToCart }) {
   return (
     <>
       <article className="First">
@@ -45,10 +43,14 @@ function ProductCards({ productName, price, description }) {
 // const result =products.map(ProductCards)
 // console.log(result)
 export default function App() {
+  const [count, setCount] = useState(0);
+  function handleAddToCart() {
+    setCount(count + 1);
+  }
   return (
     <main>
       <h1>Mini-Shop</h1>
-
+      <p>{count}</p>
       {products.map(function (product) {
         return (
           <ProductCards
@@ -56,10 +58,10 @@ export default function App() {
             productName={product.name}
             price={product.price}
             description={product.description}
+            handleAddToCart={handleAddToCart}
           />
         );
       })}
     </main>
   );
 }
-
