@@ -27,14 +27,14 @@ const products = [
   },
 ];
 
-function ProductCards({ productName, price, description, handleAddToCart }) {
+function ProductCards({ productName, price, description, handleAddToCart, product }) {
   return (
     <>
       <article className="First">
         <h2>{productName}</h2>
         <p>{price}</p>
         <p>{description}</p>
-        <button onClick={() => handleAddToCart(price)}>კალათაში დამატება</button>
+        <button onClick={() => handleAddToCart(product)}>კალათაში დამატება</button>
       </article>
     </>
   );
@@ -45,13 +45,17 @@ function ProductCards({ productName, price, description, handleAddToCart }) {
 export default function App() {
   const [count, setCount] = useState(0);
   const[total, setTotal] = useState(0);
-  function handleAddToCart(productPrice) {
+  const[cart, setCart] = useState([]);
+
+  function handleAddToCart(product) {
     setCount(count + 1);
-    setTotal(total + productPrice)
+    setTotal(total + product.price);
+    setCart([...cart, product]);
   }
   function handleCleanToCart() {
     setCount(0);
     setTotal(0);
+    setCart([]);
   }
   return (
     <main>
@@ -59,6 +63,7 @@ export default function App() {
       <p>{count}</p>
       <button onClick={handleCleanToCart}>გასუფთავება</button>
       <p>{total}</p>
+
       {products.map(function (product) {
         return (
           <ProductCards
@@ -66,6 +71,7 @@ export default function App() {
             productName={product.name}
             price={product.price}
             description={product.description}
+            product={product}
             handleAddToCart={handleAddToCart}
             handleCleanToCart={handleCleanToCart}
           />
